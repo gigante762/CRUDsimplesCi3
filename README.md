@@ -11,7 +11,7 @@ Para baixar o projeto vá até a pasta desejada e digite o comand:
  - Tenha um servidor apache na sua máquina
  - Tenha acesso a um banco de dados MySql, MariaDB.
 ### Banco de Dados
-Vá até a pasta projeto e alí você encontrará a DDL do banco de dados e também o DML, ambos em formato sql.
+Vá até a pasta *projeto* e alí você encontrará a DDL do banco de dados e também o DML, ambos em formato sql.
 
 Acesse o seu banco de dados, crie uma *database* e então rode o comando DDL encontrado em *projeto/DDL.sql*
 
@@ -29,9 +29,9 @@ Acesse o seu banco de dados, crie uma *database* e então rode o comando DDL enc
 ### Ver todos usuários
 Logo na página de incio em `/users` você verá a listagem de todos os usuários.
 ### Criar novo usuário
-Estando na página de início `/users` clique em **novo** para ter acesso ao formulário de criação de novo usuário na.
+Estando na página de início `/users` clique em **novo** para ter acesso ao formulário de criação de novo usuário.
 ### Ver usuário
-Estando na página de início `/users` clique em **ver** para ter acesso aos dados desse usuário.
+Estando na página de início `/users`, escolha um usuário e clique em **ver** para ter acesso aos dados desse usuário.
 ### Editar usuário
 Estando na página de um usuário específico `/users/123` clique em **editar** para ter acesso a edição dos dados desse usuário.
 ### Deletar usuário
