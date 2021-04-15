@@ -7,13 +7,19 @@ class User_model extends CI_Model
                 $this->load->database();
         }
 
+        /**
+         * Return all users
+         */
         public function getAll(): array
         {
 
                 $query = $this->db->get('users');
                 return $query->result();
         }
-        #validation
+        
+        /**
+         * Create new user
+         */
         public function create($data)
         {
                 $user['nome'] = $data['nome'];
@@ -24,7 +30,9 @@ class User_model extends CI_Model
                 return $this->db->insert('users', $user);
         }
 
-        #validation if have user, else redirect
+        /**
+         * Get an user by id
+         */
         public function find($id)
         {
                 $user =  $this->db->get_where('users', array('id' => $id))->row();
@@ -32,7 +40,9 @@ class User_model extends CI_Model
                 return $user;
         }
 
-        #validation
+         /**
+         * Update an user by id
+         */
         public function update($data)
         {
                 $id = $this->uri->segment(3);
@@ -44,13 +54,19 @@ class User_model extends CI_Model
                 $this->db->update('users', $user, array('id' => $id));
         }
 
+         /**
+         * Delete an user by id
+         */
         public function destroy($id)
         {
                 $this->db->delete('users', array('id' => $id));
 
         }
 
-        public function search($filter)
+         /**
+         * Return an user by name or email.
+         */
+        public function search(String $filter)
         {
                 $this->db->like('nome', $filter); 
                 $this->db->or_like('email', $filter);
@@ -58,11 +74,11 @@ class User_model extends CI_Model
                 return $this->db->get('users')->result();
         }
 
+         /**
+         * Return an array with the rules to be used in validations
+         */
         public function getValidationRules(): array
         {
-
-                $id = $this->uri->segment(3);
-                $isUniqueField = ($id) ? '' : '|is_unique[users.email]';
 
                 return [
                         [
