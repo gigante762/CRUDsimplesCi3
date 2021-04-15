@@ -1,5 +1,5 @@
 <ol class="breadcrumb">
-    <li class="breadcrumb-item"><a href="<?= base_url() ?> ">Usuários</a></li>
+    <li class="breadcrumb-item"><a href="<?= base_url('/users') ?> ">Usuários</a></li>
     <li class="breadcrumb-item"><a href="<?= base_url("users/{$user->id}") ?> "><?= $user->nome ?></a></li>
     <li class="breadcrumb-item active"><a href="<?= base_url() ?> ">Editar</a></li>
 </ol>
