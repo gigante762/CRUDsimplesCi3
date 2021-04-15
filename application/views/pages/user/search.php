@@ -1,13 +1,14 @@
 <ol class="breadcrumb">
-    <li class="breadcrumb-item"><a href="<?= base_url() ?> ">Usuários</a></li>
+    <li class="breadcrumb-item"><a href="<?= base_url('users') ?> ">Usuários</a></li>
+    <li class="breadcrumb-item"><a href="<?= base_url('/search' . $this->input->get('filter')) ?> ">Pesquisar</a></li>
 
 </ol>
-<h1>Usuários <a href="<?= base_url('users/create') ?> " class="btn btn-dark">Novo <i class="far fa-plus-square"></i></a></h1>
+<h1>Persquisa <i><?= $this->input->get('filter') ?></i> </h1>
 
 <div class="card">
     <div class="card-header">
-        <form action="<?= base_url('users/search'); ?>" class="form form-inline">
-            <input type="text" name='filter' placeholder="Nome" class="form-control mx-1" value="">
+        <form action="<?= base_url('users/search'); ?>" class="form-inline">
+            <input type="text" name='filter' placeholder="Nome" class="form-control" value="">
             <button class="btn btn-info"> Persquisar</button>
         </form>
     </div>
@@ -38,6 +39,7 @@
                 </tbody>
             </table>
     </div>
-<?php else : ?>
-    <h5 class="text-center">Não há usuários cadastrados no sistema</h5>
+
+<?php else: ?>
+    <h5 class="text-center">Não há usuários para pesquisa <i><?= $this->input->get('filter') ?></i></h5>
 <?php endif ?>

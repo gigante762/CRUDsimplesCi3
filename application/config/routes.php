@@ -50,7 +50,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |		my-controller/my-method	-> my_controller/my_method
 */
 $route['default_controller'] = 'UserController';
-$route['404_override'] = '';
+$route['404_override'] = 'UserController/page404';
 $route['translate_uri_dashes'] = FALSE;
 
 
@@ -61,3 +61,5 @@ $route['users/store']['post'] = 'UserController/store';
 $route['users/edit/(:num)'] = 'UserController/edit/$1';
 $route['users/update/(:num)']['post'] = 'UserController/update/$1';
 $route['users/destroy/(:num)']['post'] = 'UserController/destroy/$1';
+//receive get and post
+$route['users/search'] = 'UserController/search';

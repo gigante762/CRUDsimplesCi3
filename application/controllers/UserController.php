@@ -111,19 +111,51 @@ class UserController extends CI_Controller
     }
 
     /**
+     * Search for an user by name or email
+     */
+    public function search()
+    {
+
+        $filter = $this->input->get('filter');
+        if (trim($filter) !== '') {
+            $data['title'] = 'Pesquisar por usuários';
+            $data['users'] = $this->user_model->search($filter);
+
+
+            $this->load->view('includes/header', $data);
+            $this->load->view('pages/user/search.php', $data);
+            $this->load->view('includes/footer');
+            return;
+        }
+
+        $data['title'] = 'Pesquisar por usuários';
+        $data['users'] = $this->user_model->getAll();
+
+
+        $this->load->view('includes/header', $data);
+        $this->load->view('pages/user/index.php', $data);
+        $this->load->view('includes/footer');
+    }
+
+    /**
      * Used to custom callback validation function
      */
-    function check_user_email($email) {        
-        
+    function check_user_email($email)
+    {
+
         $id = ($this->uri->segment(3)) ? $this->uri->segment(3) : '';
-        
+
         $result = $this->user_model->check_unique_user_email($id, $email);
-        
-        if($result == 0)
+
+        if ($result == 0)
             return true;
-     
+
         $this->form_validation->set_message('check_user_email', 'Email must be unique');
         return false;
-        
+    }
+
+
+    function page404(){
+        return $this->load->view('404');
     }
 }

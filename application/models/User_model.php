@@ -47,6 +47,15 @@ class User_model extends CI_Model
         public function destroy($id)
         {
                 $this->db->delete('users', array('id' => $id));
+
+        }
+
+        public function search($filter)
+        {
+                $this->db->like('nome', $filter); 
+                $this->db->or_like('email', $filter);
+
+                return $this->db->get('users')->result();
         }
 
         public function getValidationRules(): array
