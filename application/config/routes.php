@@ -61,5 +61,4 @@ $route['users/store']['post'] = 'UserController/store';
 $route['users/edit/(:num)'] = 'UserController/edit/$1';
 $route['users/update/(:num)']['post'] = 'UserController/update/$1';
 $route['users/destroy/(:num)']['post'] = 'UserController/destroy/$1';
-//receive get and post
 $route['users/search'] = 'UserController/search';

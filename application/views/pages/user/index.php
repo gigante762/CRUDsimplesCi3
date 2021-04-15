@@ -12,6 +12,9 @@
         </form>
     </div>
     <div class="card-body">
+
+        <?php $this->load->view('includes/alerts') ?>
+
         <?php if ($users) : ?>
             <table class="table table-condesed">
                 <thead>

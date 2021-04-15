@@ -9,8 +9,12 @@ class UserController extends CI_Controller
         parent::__construct();
         $this->load->model('user_model');
         $this->load->helper('url_helper');
+        $this->load->library("session");
     }
 
+    /**
+     * List all users
+     */
     public function index()
     {
         $data['title'] = 'Listar todos os usuários';
@@ -20,7 +24,12 @@ class UserController extends CI_Controller
         $this->load->view('includes/header', $data);
         $this->load->view('pages/user/index.php', $data);
         $this->load->view('includes/footer');
+        
     }
+
+    /**
+     * List an specific user by id
+     */
     public function show($id)
     {
 
@@ -38,6 +47,10 @@ class UserController extends CI_Controller
         $this->load->view('pages/user/show.php', $data);
         $this->load->view('includes/footer');
     }
+
+    /**
+     * Display the view for create new user
+     */
     public function create()
     {
         $this->load->helper('form');
@@ -49,6 +62,10 @@ class UserController extends CI_Controller
         $this->load->view('pages/user/create');
         $this->load->view('includes/footer');
     }
+
+    /**
+     * Process the new user creation
+     */
     public function store()
     {
         $this->load->library('form_validation');
@@ -60,11 +77,14 @@ class UserController extends CI_Controller
         $request = $this->input->post();
         $this->user_model->create($request);
 
-        #falta passar a mensage de sucesso
+        $this->session->set_flashdata('message', 'Usuário criado com sucesso.');
         return redirect('/');
-        #falta passar a mensage de sucesso;
-        $this->load->view('formsuccess');
+       
     }
+
+    /**
+     * Display the view for edit an user
+     */
     public function edit($id)
     {
         if (!$user = $this->user_model->find($id))
@@ -81,6 +101,10 @@ class UserController extends CI_Controller
         $this->load->view('pages/user/edit', $data);
         $this->load->view('includes/footer');
     }
+
+    /**
+     * Process the update of an user by id
+     */
     public function update($id)
     {
         $this->load->library('form_validation');
@@ -96,10 +120,13 @@ class UserController extends CI_Controller
 
         $this->user_model->update($data);
 
+        $this->session->set_flashdata('message', 'Usuário editado com sucesso.');
         return redirect("/users/{$id}");
     }
 
-
+    /**
+     * Delete an user by id
+     */
     public function destroy($id)
     {
         if (!$user = $this->user_model->find($id))
@@ -107,7 +134,8 @@ class UserController extends CI_Controller
 
         $this->user_model->destroy($id);
 
-        return redirect("/users/{$id}");
+        $this->session->set_flashdata('message', 'Usuário deletado com sucesso.');
+        return redirect("/users");
     }
 
     /**
@@ -155,7 +183,11 @@ class UserController extends CI_Controller
     }
 
 
+    /**
+     * Diplay the 404 page
+     */
     function page404(){
+        
         return $this->load->view('404');
     }
 }

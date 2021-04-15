@@ -10,7 +10,8 @@
         <h4>Usuario <i><?= $user->nome ?></i> </h4>
     </div>
     <div class="card-body">
-
+        <?php $this->load->view('includes/alerts') ?>
+        
         <p><b>Nome: </b><?= $user->nome ?></p>
         <p><b>Email: </b><?= $user->email ?></p>
         <p><b>Ultima atualização: </b><?= $user->ultimaAtualizacao ?></p>
