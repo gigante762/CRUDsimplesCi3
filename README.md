@@ -4,7 +4,8 @@ Nesse projeto você poderá cadastrar um usuário com nome e email assim tendo u
 
 
 ## Configurações
-Para baixar o projeto vá até a pasta desejada e digite o comando  `git clone https://github.com/gigante762/CRUDsimplesCi3.git`
+Para baixar o projeto vá até a pasta desejada e digite o comand:
+`git clone https://github.com/gigante762/CRUDsimplesCi3.git`
 
 ### Ambiente
  - Tenha um servidor apache na sua máquina
