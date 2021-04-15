@@ -1,0 +1,2 @@
+CREATE TABLE `users` ( `id` INT NOT NULL , `nome` VARCHAR(255) NOT NULL , `email` VARCHAR(255) NOT NULL , `dataCadastro` DATETIME NOT NULL , `ultimaAtualizacao` DATETIME NOT NULL , PRIMARY KEY (`id`), UNIQUE `email_unique` (`email`)) ENGINE = InnoDB;
+ALTER TABLE `users` CHANGE `id` `id` INT(11) NOT NULL AUTO_INCREMENT;
