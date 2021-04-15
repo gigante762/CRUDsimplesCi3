@@ -51,11 +51,19 @@ class UserController extends CI_Controller
     }
     public function store()
     {
+        $this->load->library('form_validation');
+        $this->form_validation->set_rules($this->user_model->getValidationRules());
+
+        if (!$this->form_validation->run())
+            return $this->create();
+
         $request = $this->input->post();
         $this->user_model->create($request);
 
         #falta passar a mensage de sucesso
         return redirect('/');
+        #falta passar a mensage de sucesso;
+        $this->load->view('formsuccess');
     }
     public function edit($id)
     {
@@ -64,6 +72,7 @@ class UserController extends CI_Controller
 
         $this->load->helper('form');
         $this->load->library('form_validation');
+
 
         $data['title'] = 'Editar usuário';
         $data['user'] = $user;
@@ -74,8 +83,14 @@ class UserController extends CI_Controller
     }
     public function update($id)
     {
+        $this->load->library('form_validation');
+
         if (!$user = $this->user_model->find($id))
             return redirect('/users');
+
+        $this->form_validation->set_rules($this->user_model->getValidationRules());
+        if (!$this->form_validation->run())
+            return $this->edit($id);
 
         $data = $this->input->post();
 
@@ -84,7 +99,7 @@ class UserController extends CI_Controller
         return redirect("/users/{$id}");
     }
 
-    
+
     public function destroy($id)
     {
         if (!$user = $this->user_model->find($id))
@@ -93,5 +108,22 @@ class UserController extends CI_Controller
         $this->user_model->destroy($id);
 
         return redirect("/users/{$id}");
+    }
+
+    /**
+     * Used to custom callback validation function
+     */
+    function check_user_email($email) {        
+        
+        $id = ($this->uri->segment(3)) ? $this->uri->segment(3) : '';
+        
+        $result = $this->user_model->check_unique_user_email($id, $email);
+        
+        if($result == 0)
+            return true;
+     
+        $this->form_validation->set_message('check_user_email', 'Email must be unique');
+        return false;
+        
     }
 }

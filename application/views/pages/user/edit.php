@@ -9,7 +9,7 @@
     <div class="card-header">
     </div>
     <div class="card-body">
-        <?= validation_errors(); ?>
+        <?= validation_errors('<div class="text-danger">', '</div>'); ?>
         <?= form_open("users/update/{$user->id}"); ?>
             <?php $this->load->view('pages/user/includes/form') ?>
         <button type="submit" class="btn btn-success">Salvar</button>
