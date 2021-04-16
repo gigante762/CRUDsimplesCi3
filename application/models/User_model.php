@@ -13,14 +13,13 @@ class User_model extends CI_Model
         public function getAll(): array
         {
 
-                $query = $this->db->get('users');
-                return $query->result();
+                return $this->db->get('users')->result();
         }
-        
+
         /**
          * Create new user
          */
-        public function create($data)
+        public function create(array $data): bool
         {
                 $user['nome'] = $data['nome'];
                 $user['email'] = $data['email'];
@@ -32,18 +31,17 @@ class User_model extends CI_Model
 
         /**
          * Get an user by id
+         * @param String|int $id 
          */
-        public function find($id)
+        public function find($id): ?object
         {
-                $user =  $this->db->get_where('users', array('id' => $id))->row();
-
-                return $user;
+                return  $this->db->get_where('users', array('id' => $id))->row();
         }
 
-         /**
+        /**
          * Update an user by id
          */
-        public function update($data)
+        public function update(array $data): bool
         {
                 $id = $this->uri->segment(3);
 
@@ -51,30 +49,30 @@ class User_model extends CI_Model
                 $user['nome'] = $data['nome'];
                 $user['email'] = $data['email'];
 
-                $this->db->update('users', $user, array('id' => $id));
+                return $this->db->update('users', $user, array('id' => $id));
         }
 
-         /**
+        /**
          * Delete an user by id
+         * @param String|int $id
          */
-        public function destroy($id)
+        public function destroy($id): bool
         {
-                $this->db->delete('users', array('id' => $id));
-
+                return $this->db->delete('users', array('id' => $id));
         }
 
-         /**
+        /**
          * Return an user by name or email.
          */
-        public function search(String $filter)
+        public function search(String $filter): array
         {
-                $this->db->like('nome', $filter); 
+                $this->db->like('nome', $filter);
                 $this->db->or_like('email', $filter);
 
                 return $this->db->get('users')->result();
         }
 
-         /**
+        /**
          * Return an array with the rules to be used in validations
          */
         public function getValidationRules(): array
@@ -96,14 +94,15 @@ class User_model extends CI_Model
         }
 
         /**
-         * Used to custom callback validation function
+         * Custom callback validation function that's check if an email is unique or not.
+         * Can be used for insert data and update data
          */
-        function check_unique_user_email($id = '', $email)
+        function check_unique_user_email($id = '', String $email): bool
         {
                 $this->db->where('email', $email);
                 if ($id)
                         $this->db->where_not_in('id', $id);
 
-                return $this->db->get('users')->num_rows();
+                return ($this->db->get('users')->num_rows() == 0) ? true : false;
         }
 }

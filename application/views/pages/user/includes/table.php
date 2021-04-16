@@ -1,5 +1,5 @@
-<table class="table table-condesed">
-    <thead>
+<table class="table table-sm table-striped">
+    <thead class="thead-dark">
         <tr>
             <td>Nome</td>
             <td>Email</td>
@@ -10,7 +10,7 @@
     </thead>
     <tbody>
         <?php foreach ($users as $user) : ?>
-            <tr style="width: 10px;">
+            <tr>
                 <td><?= $user->nome ?></td>
                 <td><?= $user->email ?></td>
                 <td><?= $user->dataCadastro ?></td>

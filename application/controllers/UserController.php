@@ -32,7 +32,6 @@ class UserController extends CI_Controller
      */
     public function show($id)
     {
-
         if (!$user = $this->user_model->find($id))
             return redirect('/users');
 
@@ -107,12 +106,12 @@ class UserController extends CI_Controller
      */
     public function update($id)
     {
-        $this->load->library('form_validation');
-
         if (!$user = $this->user_model->find($id))
             return redirect('/users');
-
+        
+        $this->load->library('form_validation');
         $this->form_validation->set_rules($this->user_model->getValidationRules());
+        
         if (!$this->form_validation->run())
             return $this->edit($id);
 
@@ -129,7 +128,7 @@ class UserController extends CI_Controller
      */
     public function destroy($id)
     {
-        if (!$user = $this->user_model->find($id))
+        if (!$this->user_model->find($id))
             return redirect('/users');
 
         $this->user_model->destroy($id);
@@ -145,8 +144,11 @@ class UserController extends CI_Controller
     {
 
         $filter = $this->input->get('filter');
+
+        $data['title'] = 'Pesquisar por usuários';
+
         if (trim($filter) !== '') {
-            $data['title'] = 'Pesquisar por usuários';
+            
             $data['users'] = $this->user_model->search($filter);
 
 
@@ -155,27 +157,21 @@ class UserController extends CI_Controller
             $this->load->view('includes/footer');
             return;
         }
-
-        $data['title'] = 'Pesquisar por usuários';
-        $data['users'] = $this->user_model->getAll();
-
-
-        $this->load->view('includes/header', $data);
-        $this->load->view('pages/user/index.php', $data);
-        $this->load->view('includes/footer');
+       
+        return $this->index();
     }
 
     /**
      * Used to custom callback validation function
      */
-    function check_user_email($email)
+    public function check_user_email($email)
     {
 
-        $id = ($this->uri->segment(3)) ? $this->uri->segment(3) : '';
+        $id =  $this->uri->segment(3) ?? '';
 
-        $result = $this->user_model->check_unique_user_email($id, $email);
+        $isUniqueEmail = $this->user_model->check_unique_user_email($id, $email);
 
-        if ($result == 0)
+        if ($isUniqueEmail)
             return true;
 
         $this->form_validation->set_message('check_user_email', 'Email must be unique');
@@ -186,7 +182,7 @@ class UserController extends CI_Controller
     /**
      * Diplay the 404 page
      */
-    function page404(){
+    public function page404(){
         
         return $this->load->view('404');
     }

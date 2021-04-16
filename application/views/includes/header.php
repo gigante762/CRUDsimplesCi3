@@ -8,6 +8,4 @@
     <title><?= $title ?></title>
 </head>
 <body>
-    <div class="container-fluid my-3">
-
-    
+    <div class="container my-3">

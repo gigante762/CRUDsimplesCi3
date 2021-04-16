@@ -1,5 +1,5 @@
 <ol class="breadcrumb">
-    <li class="breadcrumb-item"><a href="<?= base_url('users') ?> ">Usuários</a></li>
+    <?php $this->load->view('pages/user/includes/breadcrumb-item') ?>
     <li class="breadcrumb-item active"><a href="<?= base_url('users/create') ?> ">Novo</a></li>
 </ol>
 <h1>Criar novo usuário </h1>
