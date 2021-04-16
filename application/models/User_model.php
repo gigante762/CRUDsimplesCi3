@@ -1,6 +1,7 @@
 <?php
 class User_model extends CI_Model
 {
+        protected $table = 'users';
 
         public function __construct()
         {
@@ -13,7 +14,7 @@ class User_model extends CI_Model
         public function getAll(): array
         {
 
-                return $this->db->get('users')->result();
+                return $this->db->get($this->table)->result();
         }
 
         /**
@@ -26,7 +27,7 @@ class User_model extends CI_Model
                 $user['dataCadastro'] = date('Y-m-d H:i:s');
                 $user['ultimaAtualizacao'] = $user['dataCadastro'];
 
-                return $this->db->insert('users', $user);
+                return $this->db->insert($this->table, $user);
         }
 
         /**
@@ -35,7 +36,7 @@ class User_model extends CI_Model
          */
         public function find($id): ?object
         {
-                return  $this->db->get_where('users', array('id' => $id))->row();
+                return  $this->db->get_where($this->table, array('id' => $id))->row();
         }
 
         /**
@@ -49,7 +50,7 @@ class User_model extends CI_Model
                 $user['nome'] = $data['nome'];
                 $user['email'] = $data['email'];
 
-                return $this->db->update('users', $user, array('id' => $id));
+                return $this->db->update($this->table, $user, array('id' => $id));
         }
 
         /**
@@ -58,7 +59,7 @@ class User_model extends CI_Model
          */
         public function destroy($id): bool
         {
-                return $this->db->delete('users', array('id' => $id));
+                return $this->db->delete($this->table, array('id' => $id));
         }
 
         /**
@@ -69,7 +70,7 @@ class User_model extends CI_Model
                 $this->db->like('nome', $filter);
                 $this->db->or_like('email', $filter);
 
-                return $this->db->get('users')->result();
+                return $this->db->get($this->table)->result();
         }
 
         /**
@@ -103,6 +104,6 @@ class User_model extends CI_Model
                 if ($id)
                         $this->db->where_not_in('id', $id);
 
-                return ($this->db->get('users')->num_rows() == 0) ? true : false;
+                return ($this->db->get($this->table)->num_rows() == 0) ? true : false;
         }
 }
